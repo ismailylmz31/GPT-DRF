@@ -36,6 +36,30 @@ def register(request):
         }, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def register(request):
+#     serializer = UserSerializer(data=request.data)
+    
+#     if serializer.is_valid():
+#         user = serializer.save()
+#         refresh=RefreshToken.for_user(user)
+#         return Response({
+#         'id': user.id,
+#         'username': user.username,
+#         'access': str(refresh.access_token),
+#         'refresh': str(refresh)
+#     }, status=status.HTTP_201_CREATED)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    
+
+
+
+
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def logout(request):
@@ -67,3 +91,15 @@ class UserView(APIView):
 
     def get(self, request):
         return Response({"message": "Hello, User!"})    
+
+
+class GodLevelView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    def get(self, request):
+         return Response("index.html")
+
+
+
+        
+        
+       
